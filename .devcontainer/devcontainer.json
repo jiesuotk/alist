@@ -1,0 +1,19 @@
+{
+  // 1. 关键：选择 Debian 11 (Bullseye) 作为基础镜像
+  // (这是微软官方提供的、预装了工具的 Debian 11 镜像)
+  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  
+  "features": {
+    // 2. 关键：强制安装 Go 1.21.x (我们已知这个版本是稳定的)
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "1.21"
+    },
+    // 3. 自动安装 Node.js (用于编译前端)
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  
+  // 4. 自动安装 GCC (CGO 编译 C 语言部分必需) 和 pnpm
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y gcc && npm i -g pnpm"
+}
